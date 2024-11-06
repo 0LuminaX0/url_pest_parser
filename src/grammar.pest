@@ -1,0 +1,17 @@
+WHITESPACE = _{ " " | "\t" | "\n" }
+STRICT_SYMBOL = _{ ASCII_ALPHANUMERIC | "-" | "_" | "." }
+SYMBOL = _{ STRICT_SYMBOL | "~" | "!" | "$" | "&" | "'" | "(" | ")" | "*" | "+" | "," | ";" | "=" | ":" | "/" | "?" }
+
+
+url       = { SOI ~ protocol ~ "://" ~ (subdomain ~ ".")? ~ domain ~ port? ~ path? ~ query? ~ fragment? ~ EOI }
+protocol  = { "https" | "http" }
+subdomain = { (!(".") ~ STRICT_SYMBOL)+ }
+domain    = { (STRICT_SYMBOL)+ }
+port      = { ":" ~ ASCII_DIGIT+ }
+path      = { "/" ~ segment ~ ("/" ~ segment)* }
+segment   = { (!("/" | "?" | "#") ~ SYMBOL)+ }
+query     = { "?" ~ (param ~ "&")* ~ param }
+param     = { key ~ "=" ~ value }
+key       = { (!"=" ~ STRICT_SYMBOL)+ }
+value     = { (!("&" | "#") ~ SYMBOL)+ }
+fragment  = { "#" ~ (!" " ~ STRICT_SYMBOL)* }

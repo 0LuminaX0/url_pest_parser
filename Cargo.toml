@@ -1,0 +1,13 @@
+[package]
+name = "url_pest_parser"
+version = "0.1.0"
+edition = "2021"
+description = "A URL parser using pest for Rust."
+license = "MIT"
+readme = "README.md"
+
+[dependencies]
+pest = "2.7.14"
+pest_derive = "2.7.14"
+anyhow = "1.0.93"
+thiserror = "2.0.0"
